@@ -8,3 +8,9 @@ export const shuffle = (array: number[]) => {
     }
     return array;
 }
+
+export const getRandomIntFromRange = (min: number, max: number): number => {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}

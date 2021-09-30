@@ -1,7 +1,13 @@
 import React from 'react';
 
+import Deck from '@components/Deck';
+import Header from '@components/Shared/Header';
+
 const App = () => (
-    <h1> Hi there </h1>
+    <React.Fragment>
+        <Header />
+        <Deck />
+    </React.Fragment>
 );
 
 export default App;

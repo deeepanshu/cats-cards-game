@@ -14,6 +14,7 @@ module.exports = {
     alias: {
       "@components": path.resolve(__dirname, "src/components/"),
       "@lib": path.resolve(__dirname, "src/lib/"),
+      "@store": path.resolve(__dirname, "src/store/"),
     }
   },
   module: {
