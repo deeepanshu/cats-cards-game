@@ -2,7 +2,7 @@ import express from 'express';
 import responseTime from 'response-time';
 import cors from 'cors';
 
-const expressApp = (app: express.Application) => {
+const expressLoader = (app: express.Application) => {
 
     app.use(cors());
     app.use(responseTime());
@@ -14,4 +14,4 @@ const expressApp = (app: express.Application) => {
     
 }
 
-export default expressApp;
+export default expressLoader;
