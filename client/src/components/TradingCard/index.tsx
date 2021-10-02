@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 
 interface TradingCard {
-    imageUris: string[];
+    imageUrls: string[];
     rotate: boolean;
 };
 
-const TradingCard = ({ rotate,imageUris }: TradingCard) => {
+const TradingCard = ({ rotate,imageUrls }: TradingCard) => {
     const [isRotated, setIsRotated] = React.useState(false);
     const [showContent, setShowContent] = React.useState(false);
     useEffect(() => {
@@ -20,8 +20,8 @@ const TradingCard = ({ rotate,imageUris }: TradingCard) => {
                 showContent &&
                 (
                     <div className="mystery-card">
-                        {imageUris && imageUris.map(i => (
-                                <img  width={150}  className="emotes" src={i} />
+                        {imageUrls && imageUrls.map((i, index) => (
+                                <img key={index}  width={150}  className="emotes" src={i} />
                             ))}
                     </div>
                 )
@@ -29,20 +29,5 @@ const TradingCard = ({ rotate,imageUris }: TradingCard) => {
         </div>
     );
 }
-
-/*
-<div className="content">
-                        <div className="emotes-wrapper">
-                            {imageUris && imageUris.map(i => (
-                                <img className="emotes" src={i} />
-                            ))}
-                        </div>
-                        <h1 className="header">{title}</h1>
-                        <div className="footer" >
-                            <h3>{subText}</h3>
-                            <p>{subDescription}</p>
-                        </div>
-                    </div>
-                    */
 
 export default TradingCard;
