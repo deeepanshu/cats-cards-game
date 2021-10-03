@@ -1,15 +1,26 @@
-import express from 'express';
+import express, { Response } from 'express';
 import responseTime from 'response-time';
 import cors from 'cors';
+import routes from '@lib/routes';
+
 
 const expressLoader = (app: express.Application) => {
 
     app.use(cors());
+    app.use(express.json());
+    app.use(express.urlencoded({extended: false}));
     app.use(responseTime());
-
-    app.get('/', (req, res) => {
-        console.log('say Hi');
-        res.send('hi')
+    app.use('/api', routes);
+    app.use((error, request, response: Response, next) => {
+        if(error) {
+            response.status(500);
+            response.json({
+                error: true,
+                message: error.message,
+            });
+        } else {
+            next();
+        }
     });
     
 }
