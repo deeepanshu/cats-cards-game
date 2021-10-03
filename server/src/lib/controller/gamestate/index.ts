@@ -18,11 +18,11 @@ const getGameState = async (request: Request, response: Response, next: NextFunc
     try {
         const user = request['principal']; // TODO: Add principal in Express namespace
         const oldGameStr = await redisMethods.hget(REDIS_KEYS.GAMESTATES, user);
-        if (!oldGameStr) return response.json({ data: null });
+        if (!oldGameStr) return response.json(null);
         const oldGame = JSON.parse(oldGameStr);
         const { isGameCompleted } = oldGame;
-        if (isGameCompleted) return response.json({ data: null });
-        response.json({ data: oldGame });
+        if (isGameCompleted) return response.json(null);
+        response.json(oldGame);
     } catch (error) {
         next(error);
     }
