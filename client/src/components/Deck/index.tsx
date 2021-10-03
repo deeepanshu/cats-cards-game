@@ -1,9 +1,9 @@
 import React from 'react';
-import MysteryCard from '@components/MysteryCard';
-import TradingCard from '@components/TradingCard';
-import { RootState } from '@store/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { nextMove, nextCard } from '@store/slices/gameState';
+
+
+import { RootState, nextMove, nextCard, newGame } from '@store';
+import { TradingCard, MysteryCard } from '@components';
 
 const Deck = () => {
 
@@ -20,10 +20,6 @@ const Deck = () => {
         currentCard = deckConfiguration[currentIndex];
     }
 
-    const pickFromDeck = () => {
-        dispatch(nextMove());
-    };
-
     return (
         <React.Fragment>
             <div>
@@ -33,43 +29,35 @@ const Deck = () => {
                     </MysteryCard> : <TradingCard rotate={!showingFrontFaceCard} {...currentCard} />
                 }
             </div>
-            <h5 className="text-center">Score: {catCardsEncountered}</h5>
-            <h4 className="text-center">{message}</h4>
+            <h5 className="text-center">Score: {catCardsEncountered}/5</h5>
+            {isDiffuseAvailable && <h5 className="text-center">Bomb Diffuse Available</h5>}
 
             {
-                isDiffuseAvailable && (
-                    <h4 className="text-center">Bomb Diffuse Available.</h4>
-                )
+                message && <h5 className="text-center">{message}</h5>
             }
             {(!gameWon && !gameLost) && (
                 <React.Fragment>
-
                     {
                         showingFrontFaceCard && (
-                            <button className="fill" onClick={() => {
-                                pickFromDeck();
-                            }}>REVEAL NEXT CARD</button>
+                            <button className="fill" onClick={() => dispatch(nextMove())}>REVEAL NEXT CARD</button>
                         )
                     }
                     {
                         !showingFrontFaceCard && (
-                            <button className="fill" onClick={() => {
-                                dispatch(nextCard());
-                            }}>OK</button>
+                            <button className="fill" onClick={() => dispatch(nextCard())}>OK</button>
                         )
                     }
                 </React.Fragment>
             )}
 
             {
-                gameLost && (
-                    <h1 className="text-center">You lost! ☹💣</h1>
-                )
-            }
-
-            {
-                gameWon && (
-                    <h1 className="text-center">You won! 🎉</h1>
+                (gameWon || gameLost) && (
+                    <React.Fragment>
+                        <h1 className="text-center">{gameWon ? 'You won! 🎉' : 'You lost! ☹💣'}</h1>
+                        <button className="fill" onClick={() => {
+                            dispatch(newGame());
+                        }}>New Game</button>
+                    </React.Fragment>
                 )
             }
         </React.Fragment>

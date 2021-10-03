@@ -1,6 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { CardType, DeckConfig, GameState } from '@lib/interfaces';
 import { shuffle } from '@lib/utils';
+import { getGameState } from '@lib/api';
+import { toggleLoading } from './environment';
+import { NEW_GAME_STATE } from '@lib/constants';
+import { RootState } from '@store/store';
 
 const initialState: GameState = {
   isGameCompleted: false,
@@ -12,46 +16,25 @@ const initialState: GameState = {
   showingFrontFaceCard: true,
   shuffleDeckPending: false,
   message: '',
-  deckConfiguration: [
-    {
-      type: CardType.CAT,
-      imageUrls: ['https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/google/298/grinning-cat-with-smiling-eyes_1f638.png'],
-    },
-    {
-      type: CardType.SHUFFLE,
-      imageUrls: ['https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/google/298/shuffle-tracks-button_1f500.png'],
-    },
-    {
-      type: CardType.DIFFUSAL,
-      imageUrls: ['https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/google/298/cat-with-wry-smile_1f63c.png'],
-    },
-    {
-      type: CardType.BOMB,
-      imageUrls: ['https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/google/298/bomb_1f4a3.png'],
-    },
-    {
-      type: CardType.CAT,
-      imageUrls: ['https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/google/298/grinning-cat-with-smiling-eyes_1f638.png'],
-    },
-    {
-      type: CardType.CAT,
-      imageUrls: ['https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/google/298/grinning-cat-with-smiling-eyes_1f638.png'],
-    },
-    {
-      type: CardType.CAT,
-      imageUrls: ['https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/google/298/grinning-cat-with-smiling-eyes_1f638.png'],
-    },
-    {
-      type: CardType.CAT,
-      imageUrls: ['https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/google/298/grinning-cat-with-smiling-eyes_1f638.png'],
-    }
-  ],
+  deckConfiguration: [],
 }
+
+export const getLastGame = createAsyncThunk('/user/getLastGame', async (_, { dispatch }): Promise<GameState> => {
+  const response = await getGameState();
+  dispatch(toggleLoading(false));
+  if (response.data) {
+    return response.data;
+  }
+  return NEW_GAME_STATE;
+})
 
 export const gameStateSlice = createSlice({
   name: 'gameState',
   initialState,
   reducers: {
+    newGame: (state) => {
+      return NEW_GAME_STATE;
+    },
     nextCard: (state) => {
       if (state.shuffleDeckPending) {
         state.deckConfiguration = shuffle<DeckConfig>(state.deckConfiguration);
@@ -71,10 +54,12 @@ export const gameStateSlice = createSlice({
         state.catCardsEncountered = state.catCardsEncountered + 1;
         if (state.catCardsEncountered === 5) {
           state.gameWon = true;
+          state.isGameCompleted = true;
         }
       } else if (currentCard.type === CardType.BOMB) {
         if (!state.isDiffuseAvailable) {
           state.gameLost = true;
+          state.isGameCompleted = true;
         } else {
           state.message = 'You have used your bomb diffusal card!!!';
           state.isDiffuseAvailable = false;
@@ -89,8 +74,13 @@ export const gameStateSlice = createSlice({
       state.showingFrontFaceCard = false;
       return state;
     }
+  },
+  extraReducers: {
+    [getLastGame.fulfilled as any]: (state, action) => {
+      return action.payload;
+    }
   }
 })
 
-export const { nextMove, nextCard } = gameStateSlice.actions;
+export const { nextMove, nextCard, newGame } = gameStateSlice.actions;
 export default gameStateSlice.reducer;

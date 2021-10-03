@@ -1,9 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { UserState } from '@lib/interfaces';
 
-
 const initialState: UserState = {
-    userName: localStorage.getItem('username') || '',
+  userName: '',
 }
 
 export const userSlice = createSlice({

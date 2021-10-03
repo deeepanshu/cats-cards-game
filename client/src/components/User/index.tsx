@@ -1,4 +1,6 @@
 import MysteryCard from '@components/MysteryCard';
+import { toggleLoading } from '@store/slices/environment';
+import { getLastGame } from '@store/slices/gameState';
 import { setUser as setUserRx } from '@store/slices/user';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -8,8 +10,10 @@ const User = () => {
     const [user, setUser] = useState<string>('');
 
     const saveUserName = () => {
-        localStorage.setItem('username', user);
+        sessionStorage.setItem('username', user);
+        dispatch(toggleLoading(true));
         dispatch(setUserRx(user));
+        dispatch(getLastGame());
     }
 
     return (

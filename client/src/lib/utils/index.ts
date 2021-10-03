@@ -18,11 +18,24 @@ export const getRandomIntFromRange = (min: number, max: number): number => {
 }
 
 export const gameStateListener = (store: any) => (next: any) => (action: any) => {
-    console.log(action.type);
     const result = next(action);
     if (action.type === 'gameState/nextMove') {
         const { gameState } = store.getState();
-        updateGameState(gameState)
+        updateGameState(gameState);
     }
     return result;
+}
+
+export const cacheImages = async (imgs: string[]) => {
+    const promises = await imgs.map(i => {
+        return new Promise(function (resolve, reject) {
+            const img = new Image();
+
+            img.src = i;
+            img.onload = resolve('done') as unknown as any;
+            img.onerror = reject() as unknown as any;
+
+        })
+    });
+    await Promise.all(promises);
 }
