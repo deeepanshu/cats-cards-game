@@ -4,23 +4,25 @@ body {
     min-height: 100vh;
     background-color: #F9BC61;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .d-flex {
     display: flex;
 }
 
-.d-flex-column {
-    display: flex;
+.flex-column {
     flex-direction: column;
-}
-
-.justify-content-center {
-    justify-content: center;
 }
 
 .mt-10 {
     margin-top: 10px;
+}
+
+.mt-20 {
+    margin-top: 20px;
 }
 
 .text-center {
@@ -125,4 +127,43 @@ button {
 .fill:hover,
 .fill:focus {
   box-shadow: inset 0 0 0 2em var(--hover);
+}
+
+input {
+    width: 100%;
+    text-decoration: none;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #c07401 ;
+}
+
+input:focus{
+    outline: none;
+}
+
+
+*::-webkit-input-placeholder {
+    color: #c07401;
+}
+*:-moz-placeholder {
+    /* FF 4-18 */
+    color: #c07401;
+    opacity: 1;
+}
+*::-moz-placeholder {
+    /* FF 19+ */
+    color: #c07401;
+    opacity: 1;
+}
+*:-ms-input-placeholder {
+    /* IE 10+ */
+    color: #c07401;
+}
+*::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: #c07401;
+}
+*::placeholder {
+    /* modern browser */
+    color: #c07401;
 }

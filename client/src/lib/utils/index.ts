@@ -1,3 +1,5 @@
+import { updateGameState } from "@lib/api";
+
 export function shuffle<T>(array: T[]): T[] {
     let currentIndex = array.length, randomIndex;
     while (currentIndex != 0) {
@@ -13,4 +15,14 @@ export const getRandomIntFromRange = (min: number, max: number): number => {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+export const gameStateListener = (store: any) => (next: any) => (action: any) => {
+    console.log(action.type);
+    const result = next(action);
+    if (action.type === 'gameState/nextMove') {
+        const { gameState } = store.getState();
+        updateGameState(gameState)
+    }
+    return result;
 }

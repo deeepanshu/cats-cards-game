@@ -1,59 +1,9 @@
+import React from 'react';
 import MysteryCard from '@components/MysteryCard';
 import TradingCard from '@components/TradingCard';
 import { RootState } from '@store/store';
-import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { nextMove, nextCard } from '@store/slices/gameState';
-// const DECKORDER = [
-//     {
-//         type: "cat",
-//         imageUris: ['https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/google/298/grinning-cat-with-smiling-eyes_1f638.png'],
-//         subText: "Cat Card",
-//         subDescription: "Cat Card",
-//     },
-//     {
-//         type: "diffuser",
-//         imageUris: ['https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/google/298/cat-with-wry-smile_1f63c.png'],
-//         subText: "Diffusal Card",
-//         subDescription: "Diffusal Card",
-//     },
-//     {
-//         type: "bomb",
-//         imageUris: ['https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/google/298/bomb_1f4a3.png'],
-//         subText: "Bomb Card",
-//         subDescription: "Bomb Card",
-//     },
-//     {
-//         type: "cat",
-//         imageUris: ['https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/google/298/grinning-cat-with-smiling-eyes_1f638.png'],
-//         subText: "Cat Card",
-//         subDescription: "Cat Card",
-//     },
-//     {
-//         type: "cat",
-//         imageUris: ['https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/google/298/grinning-cat-with-smiling-eyes_1f638.png'],
-//         subText: "Cat Card",
-//         subDescription: "Cat Card",
-//     },
-//     {
-//         type: "cat",
-//         imageUris: ['https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/google/298/grinning-cat-with-smiling-eyes_1f638.png'],
-//         subText: "Cat Card",
-//         subDescription: "Cat Card",
-//     },
-//     {
-//         type: "cat",
-//         imageUris: ['https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/google/298/grinning-cat-with-smiling-eyes_1f638.png'],
-//         subText: "Cat Card",
-//         subDescription: "Cat Card",
-//     },
-//     {
-//         type: "shuffle",
-//         imageUris: ['https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/google/298/shuffle-tracks-button_1f500.png'],
-//         subText: "Shuffle Card",
-//         subDescription: "Shuffle Card",
-//     },
-// ];
 
 const Deck = () => {
 
@@ -75,10 +25,12 @@ const Deck = () => {
     };
 
     return (
-        <div>
-            <div className="d-flex justify-content-center">
+        <React.Fragment>
+            <div>
                 {
-                    showingFrontFaceCard ? <MysteryCard /> : <TradingCard rotate={!showingFrontFaceCard} {...currentCard} />
+                    showingFrontFaceCard ? <MysteryCard>
+                        <img width={150} src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/285/face-with-hand-over-mouth_1f92d.png" />
+                    </MysteryCard> : <TradingCard rotate={!showingFrontFaceCard} {...currentCard} />
                 }
             </div>
             <h5 className="text-center">Score: {catCardsEncountered}</h5>
@@ -90,7 +42,7 @@ const Deck = () => {
                 )
             }
             {(!gameWon && !gameLost) && (
-                <div className="d-flex justify-content-center mt-10">
+                <React.Fragment>
 
                     {
                         showingFrontFaceCard && (
@@ -106,7 +58,7 @@ const Deck = () => {
                             }}>OK</button>
                         )
                     }
-                </div>
+                </React.Fragment>
             )}
 
             {
@@ -120,7 +72,7 @@ const Deck = () => {
                     <h1 className="text-center">You won! 🎉</h1>
                 )
             }
-        </div>
+        </React.Fragment>
     );
 }
 

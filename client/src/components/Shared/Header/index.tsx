@@ -1,8 +1,10 @@
 import React from 'react';
 
-const Header = () => (
-    <nav className="d-flex justify-content-center">
-        <h1>Cats Card Game</h1>
+const Header = ({ username }: { username: string }) => (
+    <nav>
+        {
+            username ? <h2 className="text-center">Hi {username}, Lets play!</h2> : <h2 className="text-center">Cats Card Game</h2>
+        }
     </nav>
 )
 

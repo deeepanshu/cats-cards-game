@@ -2,6 +2,9 @@ import React, { useEffect } from 'react';
 
 import Deck from '@components/Deck';
 import Header from '@components/Shared/Header';
+import User from '@components/User';
+import { useSelector } from 'react-redux';
+import { RootState } from '@store/store';
 
 const imgs = [
     'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/285/face-with-hand-over-mouth_1f92d.png',
@@ -14,9 +17,10 @@ const imgs = [
 
 const App = () => {
 
+    const { user } = useSelector((state: RootState) => state);
     const cacheImages = async (imgs: string[]) => {
         const promises = await imgs.map(i => {
-            return new Promise(function(resolve, reject) {
+            return new Promise(function (resolve, reject) {
                 const img = new Image();
 
                 img.src = i;
@@ -30,13 +34,15 @@ const App = () => {
 
     useEffect(() => {
         cacheImages(imgs);
-    })
+    }, []);
 
     return (
-        <React.Fragment>
-            <Header />
-            <Deck />
-        </React.Fragment>
+        <div className="d-flex flex-column">
+            <Header username={user.userName} />
+            {
+                user.userName ? <Deck /> : <User />
+            }
+        </div>
     );
 }
 

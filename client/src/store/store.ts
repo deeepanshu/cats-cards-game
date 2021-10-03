@@ -3,6 +3,7 @@ import { environmentSlice } from './slices/environment';
 import { gameStateSlice } from './slices/gameState';
 import { userSlice } from './slices/user';
 import reduxLogger from 'redux-logger';
+import { gameStateListener } from '@lib/utils';
 
 export const store = configureStore({
   reducer: {
@@ -11,7 +12,7 @@ export const store = configureStore({
     user: userSlice.reducer,
   },
   devTools: true,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(reduxLogger)
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(reduxLogger, gameStateListener)
 })
 
 export type RootState = ReturnType<typeof store.getState>;
