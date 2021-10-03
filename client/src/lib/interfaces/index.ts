@@ -27,4 +27,4 @@ export interface UserState {
     userName: string;
 }
 
-export type LeaderBoardState = {userName: string}[]
+export type LeaderBoardState = [string, string][]

@@ -178,8 +178,25 @@ input:focus{
     /* modern browser */
     color: #c07401;
 }
+
 .close-icon-wrapper {
     top: 5%;
     right: 5%;
     position: absolute;
+}
+
+.endgame-icon-wrapper {
+    top: 5%;
+    right: 7%;
+    position: absolute;
+}
+
+.button-footer {
+    position: absolute;
+    bottom: 10%;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
 }

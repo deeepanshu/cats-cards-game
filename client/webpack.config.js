@@ -8,6 +8,7 @@ module.exports = {
   entry: './src/index.tsx',
   output: {
     path: __dirname + '/dist/',
+    publicPath: '/'
   },
   resolve: {
     extensions: ['*', ".js", ".jsx", '.ts', '.tsx'],
@@ -16,6 +17,9 @@ module.exports = {
       "@lib": path.resolve(__dirname, "src/lib/"),
       "@store": path.resolve(__dirname, "src/store/"),
     }
+  },
+  devServer: {
+    historyApiFallback: true,
   },
   module: {
     rules: [

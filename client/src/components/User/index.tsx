@@ -20,7 +20,7 @@ const User = () => {
             <div className="d-flex flex-column">
                 <h4>What should we call you?</h4>
                 <input className="user-input" type="text" placeholder={"Username"} onChange={(e) => setUser(e.target.value)} value={user} />
-                <button className="fill mt-20" onClick={saveUserName}>Save & Next</button>
+                <button className="fill mt-20" onClick={saveUserName}>Play</button>
             </div>
         </MysteryCard>
     );
