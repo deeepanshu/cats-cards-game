@@ -1,4 +1,4 @@
-import { NextFunction, request, Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { REDIS_KEYS } from '@lib/env';
 import redisMethods from '@services/redis';
 
@@ -7,6 +7,11 @@ const patchGameState = async (request: Request, response: Response, next: NextFu
         const user = request['principal']; // TODO: Add principal in Express namespace
         const { body } = request;
         const bodyStr = JSON.stringify(body);
+        if (body.isGameCompleted) {
+            const { catCardsEncountered } = body;
+            const d = await redisMethods.zadd(REDIS_KEYS.LEADERBOARD, Number(catCardsEncountered), user);
+            console.log(d);
+        }
         await redisMethods.hset(REDIS_KEYS.GAMESTATES, user, bodyStr);
         response.send("OK");
     } catch (error) {

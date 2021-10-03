@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
+import reduxLogger from 'redux-logger';
+
 import { environmentSlice } from './slices/environment';
 import { gameStateSlice } from './slices/gameState';
 import { userSlice } from './slices/user';
-import reduxLogger from 'redux-logger';
+import { leaderboardSlice } from './slices/leaderboard';
 import { gameStateListener } from '@lib/utils';
 
 export const store = configureStore({
@@ -10,6 +12,7 @@ export const store = configureStore({
     environment: environmentSlice.reducer,
     gameState: gameStateSlice.reducer,
     user: userSlice.reducer,
+    leaderboard: leaderboardSlice.reducer,
   },
   devTools: true,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(reduxLogger, gameStateListener)

@@ -4,7 +4,6 @@ import { shuffle } from '@lib/utils';
 import { getGameState } from '@lib/api';
 import { toggleLoading } from './environment';
 import { NEW_GAME_STATE } from '@lib/constants';
-import { RootState } from '@store/store';
 
 const initialState: GameState = {
   isGameCompleted: false,
@@ -26,7 +25,7 @@ export const getLastGame = createAsyncThunk('/user/getLastGame', async (_, { dis
     return response.data;
   }
   return NEW_GAME_STATE;
-})
+});
 
 export const gameStateSlice = createSlice({
   name: 'gameState',
@@ -55,6 +54,7 @@ export const gameStateSlice = createSlice({
         if (state.catCardsEncountered === 5) {
           state.gameWon = true;
           state.isGameCompleted = true;
+          state.message = '';
         }
       } else if (currentCard.type === CardType.BOMB) {
         if (!state.isDiffuseAvailable) {

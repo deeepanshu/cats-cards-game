@@ -1,4 +1,4 @@
-import { GameState } from '@lib/interfaces';
+import { GameState, LeaderBoardState } from '@lib/interfaces';
 import axios, { AxiosResponse } from 'axios';
 
 
@@ -39,4 +39,11 @@ const getGameState = (): Promise<AxiosResponse<GameState | null>> => {
     })
 }
 
-export { updateGameState, getGameState };
+const getLeaderboard = (): Promise<AxiosResponse<LeaderBoardState>> => {
+    return axiosInstance({
+        url: "/leaderboard",
+        method: "get"
+    })
+}
+
+export { updateGameState, getGameState, getLeaderboard };

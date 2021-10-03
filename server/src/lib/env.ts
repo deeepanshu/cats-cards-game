@@ -3,7 +3,8 @@ const CONFIG = {
 };
 
 enum REDIS_KEYS {
-    GAMESTATES = 'gamestates'
+    GAMESTATES = 'gamestates',
+    LEADERBOARD = 'leaderboard',
 }
 
 export { CONFIG, REDIS_KEYS };

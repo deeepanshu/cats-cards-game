@@ -13,6 +13,9 @@ const redisMethods = {
     hmset: promisify(client.hmset).bind(client),
     hmget: promisify(client.hmget).bind(client),
     exists: promisify(client.exists).bind(client),
+    zadd: promisify(client.zadd).bind(client),
+    zrange: promisify(client.zrange).bind(client),
+    zrevrange: promisify(client.zrevrange).bind(client),
 };
 
 export const redisLoader = (app: Express) => {

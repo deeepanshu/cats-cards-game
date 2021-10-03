@@ -26,3 +26,5 @@ export interface GameState {
 export interface UserState {
     userName: string;
 }
+
+export type LeaderBoardState = {userName: string}[]

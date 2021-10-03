@@ -9,7 +9,7 @@ const Deck = () => {
 
     const dispatch = useDispatch();
     const { gameState } = useSelector((state: RootState) => state);
-    const { showingFrontFaceCard, catCardsEncountered, gameLost, gameWon, currentIndex, deckConfiguration, isDiffuseAvailable, message } = gameState;
+    const { showingFrontFaceCard, catCardsEncountered, gameLost, gameWon, currentIndex, deckConfiguration, isDiffuseAvailable, message, shuffleDeckPending } = gameState;
 
     let currentCard = {
         type: '',
@@ -22,7 +22,7 @@ const Deck = () => {
 
     return (
         <React.Fragment>
-            <div>
+            <div className="">
                 {
                     showingFrontFaceCard ? <MysteryCard>
                         <img width={150} src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/285/face-with-hand-over-mouth_1f92d.png" />
@@ -30,7 +30,7 @@ const Deck = () => {
                 }
             </div>
             <h5 className="text-center">Score: {catCardsEncountered}/5</h5>
-            {isDiffuseAvailable && <h5 className="text-center">Bomb Diffuse Available</h5>}
+            {(isDiffuseAvailable && !gameWon && !gameLost && !shuffleDeckPending) && <h5 className="text-center">Bomb Diffuse Available</h5>}
 
             {
                 message && <h5 className="text-center">{message}</h5>
