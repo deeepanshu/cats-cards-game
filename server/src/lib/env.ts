@@ -1,5 +1,9 @@
-const config = {
+const CONFIG = {
     PORT: 9000,
 };
 
-export { config };
+enum REDIS_KEYS {
+    GAMESTATES = 'gamestates'
+}
+
+export { CONFIG, REDIS_KEYS };
