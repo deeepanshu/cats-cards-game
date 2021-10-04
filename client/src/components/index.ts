@@ -6,6 +6,7 @@ import Header from './Shared/Header';
 import User from './User';
 import Main from "./Main";
 import Leaderboard from "./Leaderboard";
+import Card from "./Card";
 
 
-export { MysteryCard, TradingCard, Deck, Header, User, Main, Leaderboard };
+export { MysteryCard, TradingCard, Card, Deck, Header, User, Main, Leaderboard };

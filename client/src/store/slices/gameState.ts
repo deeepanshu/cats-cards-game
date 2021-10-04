@@ -4,6 +4,7 @@ import { shuffle } from '@lib/utils';
 import { getGameState } from '@lib/api';
 import { toggleLoading } from './environment';
 import { NEW_GAME_STATE } from '@lib/constants';
+import { toast } from 'react-toastify';
 
 const initialState: GameState = {
   isGameCompleted: false,
@@ -22,6 +23,7 @@ export const getLastGame = createAsyncThunk('/user/getLastGame', async (_, { dis
   const response = await getGameState();
   dispatch(toggleLoading(false));
   if (response.data) {
+    toast.success("Found old game.");
     return response.data;
   }
   return NEW_GAME_STATE;
@@ -31,7 +33,7 @@ export const gameStateSlice = createSlice({
   name: 'gameState',
   initialState,
   reducers: {
-    newGame: (state) => {
+    newGame: (state, action) => {
       return NEW_GAME_STATE;
     },
     nextCard: (state) => {

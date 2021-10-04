@@ -16,13 +16,10 @@ const User = () => {
     }
 
     return (
-        <MysteryCard>
-            <div className="d-flex flex-column">
-                <h4>What should we call you?</h4>
-                <input className="user-input" type="text" placeholder={"Username"} onChange={(e) => setUser(e.target.value)} value={user} />
-                <button className="fill mt-20" onClick={saveUserName}>Play</button>
-            </div>
-        </MysteryCard>
+        <div className="d-flex flex-column mt-30">
+            <input autoFocus className="user-input" type="text" placeholder={"What should we call you?"} onChange={(e) => setUser(e.target.value)} value={user} />
+            <button className="fill mt-20" onClick={saveUserName}>Play</button>
+        </div>
     );
 }
 

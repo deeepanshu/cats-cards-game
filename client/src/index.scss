@@ -10,6 +10,10 @@ body {
     align-items: center;
 }
 
+.Toastify__toast {
+    background: #F9BC61;
+}
+
 .d-flex {
     display: flex;
 }
@@ -29,10 +33,14 @@ body {
 .mb-20 {
     margin-bottom: 20px;
 }
+.mt-30 {
+    margin-top: 30px;
+}
 
 .text-center {
     text-align: center;
 }
+
 
 h5 {
     margin: .5rem 0 .5rem 0;
@@ -187,7 +195,7 @@ input:focus{
 
 .endgame-icon-wrapper {
     top: 5%;
-    right: 7%;
+    right: 8%;
     position: absolute;
 }
 
@@ -200,3 +208,20 @@ ul {
     list-style: none;
     padding: 0;
 }
+
+@media only screen and (max-width: 600px) {
+    .close-icon-wrapper {
+        top: 5%;
+        right: 5%;
+        position: absolute;
+    }
+    
+    .endgame-icon-wrapper {
+        top: 5%;
+        right: 20%;
+        position: absolute;
+    }
+    
+  }
+
+  

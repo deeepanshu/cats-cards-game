@@ -1,4 +1,5 @@
 import { updateGameState } from "@lib/api";
+import { toast } from "react-toastify";
 
 export function shuffle<T>(array: T[]): T[] {
     let currentIndex = array.length, randomIndex;
@@ -22,6 +23,9 @@ export const gameStateListener = (store: any) => (next: any) => (action: any) =>
     if (action.type === 'gameState/nextMove') {
         const { gameState } = store.getState();
         updateGameState(gameState);
+    }
+    if (action.type === 'gameState/newGame' && action.payload) {
+        toast.success("Started New Game");
     }
     return result;
 }

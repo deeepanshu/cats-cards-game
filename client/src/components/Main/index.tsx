@@ -14,11 +14,11 @@ const Main = () => {
 
     const reset = () => {
         dispatch(resetUser());
-        dispatch(newGame());
+        dispatch(newGame(false));
     }
 
     const endCurrentGame = () => {
-        dispatch(newGame());
+        dispatch(newGame(true));
     }
 
     return (
@@ -37,7 +37,7 @@ const Main = () => {
                 ) : (
                     <React.Fragment>
                         <User />
-                        <button onClick={() => history.push('/leaderboard')} className="fill mt-20">View Leaderboard</button>
+                        <button onClick={() => history.push('/leaderboard')} className="fill mt-30">View Leaderboard</button>
                     </React.Fragment>
                 )
             }

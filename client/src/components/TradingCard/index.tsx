@@ -11,6 +11,7 @@ const TradingCard = ({ rotate,imageUrls }: TradingCard) => {
     useEffect(() => {
         setIsRotated(rotate);
         if (rotate) {
+            // for aesthetics, can be removed.
             setTimeout(() => setShowContent(true), 500);
         }
     }, [rotate]);

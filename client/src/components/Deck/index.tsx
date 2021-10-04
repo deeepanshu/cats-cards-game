@@ -24,9 +24,7 @@ const Deck = () => {
         <React.Fragment>
             <div className="">
                 {
-                    showingFrontFaceCard ? <MysteryCard>
-                        <img width={150} src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/285/face-with-hand-over-mouth_1f92d.png" />
-                    </MysteryCard> : <TradingCard rotate={!showingFrontFaceCard} {...currentCard} />
+                    showingFrontFaceCard ? <MysteryCard/> : <TradingCard rotate={!showingFrontFaceCard} {...currentCard} />
                 }
             </div>
             <h5 className="text-center">Score: {catCardsEncountered}/5</h5>
@@ -55,7 +53,7 @@ const Deck = () => {
                     <React.Fragment>
                         <h1 className="text-center">{gameWon ? 'You won! 🎉' : 'You lost! ☹💣'}</h1>
                         <button className="fill" onClick={() => {
-                            dispatch(newGame());
+                            dispatch(newGame(false));
                         }}>New Game</button>
                     </React.Fragment>
                 )
